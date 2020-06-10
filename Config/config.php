@@ -24,6 +24,11 @@ return [
             ],
         ],
         'forms'   => [
+            'mautic.beefree.form.type.email' => [
+                'class' => \MauticPlugin\MauticBeefreeBundle\Form\Type\EmailType::class,
+                'arguments' => 'mautic.factory',
+                'alias' => 'emailform'
+            ]
         ],
         'helpers' => [],
         'other'   => [
@@ -53,7 +58,7 @@ return [
         'main' => [
             'mautic_beefree_action' => [
                 'path'       => '/beefree/{objectType}/builder/{objectId}',
-                'controller' => 'MauticBeefreeBundle:BeeFree:builder',
+                'controller' => 'MauticBeefreeBundle:Beefree:builder',
             ],
         ],
     ],

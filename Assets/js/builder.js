@@ -1,12 +1,5 @@
-Mautic.lanunchBuilderCore = Mautic.launchBuilder;
 
-console.log('before add button');
-//add the button
-$('#toolbar > .toolbar-bundle-buttons > .btn-group').prepend('<button type="button" class="btn btn-default btn-dnd btn-nospin text-primary btn-builder btn-copy" id="emailform_buttons_builder_beefree_toolbar"><i class="fa fa-cube "></i>BeeFree Editor</button>');
-console.log('after add button');
-
-
-Mautic.launchBuilderCustom = function (formName, actionName) {
+Mautic.launchCustomBuilder = function (formName, actionName) {
     var currentActiveTemplate = mQuery('.theme-selected').find('.select-theme-link').attr('data-theme');
     var builderUrl = (mQuery('#builder_url').val()).replace('s/emails/','s/beefree/email/')+'?template=' + currentActiveTemplate;
     if ( (mQuery('#builder_url').val()).indexOf('pages') !== -1) {
@@ -17,17 +10,6 @@ Mautic.launchBuilderCustom = function (formName, actionName) {
         "popupName": "beefreePopup"
     });
 }
-
-// launch custom builder for emails and pages without code mode
-Mautic.launchBuilder = function (formName, actionName) {
-    var isCodeMode = mQuery('.theme-selected').find('.select-theme-link').attr('data-theme') === 'mautic_code_mode';
-    if((formName === 'emailform' || formName === 'page' ) && !isCodeMode) {
-        Mautic.launchBuilderCustom(formName, actionName);
-        return;
-    }
-    Mautic.lanunchBuilderCore(formName, actionName);
-};
-
 
 /**
  * Open a popup

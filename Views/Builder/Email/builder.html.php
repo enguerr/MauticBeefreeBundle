@@ -1,9 +1,30 @@
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
+<style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
     }
 
+    body {
+        overflow: hidden;
+        background-color: #CCCCCC;
+        color: #000000;
+    }
+
+    #bee-plugin-container {
+        position: absolute;
+        top: 5px;
+        bottom: 30px;
+        left: 5px;
+        right: 5px;
+    }
+
+    #integrator-bottom-bar {
+        position: absolute;
+        height: 25px;
+        bottom: 0px;
+        left: 5px;
+        right: 0px;
+    }
 </style>
 <div id="gjs" style="height:0px; overflow:hidden;"></div>
 <script type="text/javascript">
