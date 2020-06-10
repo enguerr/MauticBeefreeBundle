@@ -15,7 +15,7 @@ if (!isset($mauticContent)) {
 </script>
 <?php $view['assets']->outputSystemScripts(false); ?>
 
-<link rel="stylesheet" href="<?php echo $view['assets']->getUrl('/plugins/MauticGrapeJsBundle/Assets/css/atwho.css') ?>">
+<link rel="stylesheet" href="<?php echo $view['assets']->getUrl('/plugins/MauticBeefreeBundle/Assets/css/atwho.css') ?>">
 <link rel="stylesheet" href="//unpkg.com/grapesjs@0.14.57/dist/css/grapes.min.css">
 <link rel="stylesheet" href="https://unpkg.com/grapesjs-preset-newsletter@0.2.20/dist/grapesjs-preset-newsletter.css">
 

@@ -22,7 +22,7 @@
 
         assetManager: {
             assets: <?php echo json_encode($images); ?>,
-            upload: '<?php echo $view['router']->generate('mautic_grapejs_upload', [], true) ?>',
+            upload: '<?php echo $view['router']->generate('mautic_beefree_upload', [], true) ?>',
             uploadName: 'files',
             multiUpload: true,
             // Text on upload input

@@ -47,8 +47,8 @@ class AssetSubscriber extends CommonSubscriber
      */
     public function injectAssets(CustomAssetsEvent $assetsEvent)
     {
-        $grapeJsIntegration = $this->integrationHelper->getIntegrationObject('Beefree');
-        if ($grapeJsIntegration && $grapeJsIntegration->getIntegrationSettings()->getIsPublished()) {
+        $beefreeIntegration = $this->integrationHelper->getIntegrationObject('Beefree');
+        if ($beefreeIntegration && $beefreeIntegration->getIntegrationSettings()->getIsPublished()) {
             $assetsEvent->addScript('plugins/MauticBeefreeBundle/Assets/js/builder.js');
         }
     }

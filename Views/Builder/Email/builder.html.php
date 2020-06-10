@@ -7,7 +7,10 @@
 </style>
 <div id="gjs" style="height:0px; overflow:hidden;"></div>
 <script type="text/javascript">
-    // Set up BeeFree editor with the Newsletter plugin
+
+
+
+/*    // Set up BeeFree editor with the Newsletter plugin
     var bodytext = '';
     var m = (window.opener.mQuery('textarea.builder-html').val()).match(/<body[^>]*>([^<]*(?:(?!<\/?body)<[^<]*)*)<\/body\s*>/i);
     if (m) {
@@ -23,7 +26,7 @@
 
         assetManager: {
             assets: <?php echo json_encode($images); ?>,
-            upload: '<?php echo $view['router']->generate('mautic_grapejs_upload', [], true) ?>',
+            upload: '<?php echo $view['router']->generate('mautic_beefree_upload', [], true) ?>',
             uploadName: 'files',
             multiUpload: true,
             // Text on upload input
@@ -91,5 +94,5 @@
         let elem = iFrame.contents().find(some.$el[0]);
         elem.atwho('setIframe', iFrame[0]);
         Mautic.initAtWho(elem, 'email:getBuilderTokens', false);
-    });
+    });*/
 </script>

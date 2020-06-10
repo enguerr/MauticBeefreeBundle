@@ -10,7 +10,7 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticGrapeJsBundle\Integration;
+namespace MauticPlugin\MauticBeefreeBundle\Integration;
 
 use Mautic\PluginBundle\Integration\AbstractIntegration;
 
@@ -23,12 +23,12 @@ class BeefreeIntegration extends AbstractIntegration
      */
     public function getName()
     {
-        return 'GrapeJs';
+        return 'Beefree';
     }
 
     public function getIcon()
     {
-        return 'plugins/MauticGrapeJsBundle/Assets/img/icon.png';
+        return 'plugins/MauticBeefreeBundle/Assets/img/icon.png';
     }
 
     /**

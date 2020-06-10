@@ -9,7 +9,7 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticGrapeJsBundle\Controller;
+namespace MauticPlugin\MauticBeefreeBundle\Controller;
 
 use Mautic\CoreBundle\Controller\CommonController;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
@@ -28,7 +28,6 @@ class BeefreeController extends CommonController
      */
     public function builderAction($objectType, $objectId)
     {
-
         /** @var \Mautic\EmailBundle\Model\EmailModel|\Mautic\EmailBundle\Model\EmailModel $model */
         $model = $this->getModel($objectType);
         $aclToCheck = 'email:emails:';
@@ -99,17 +98,17 @@ class BeefreeController extends CommonController
         $templateWithoutBody = str_replace($body, '||BODY||', $templateWithBody);
         $hiddenTemplate = '<textarea id="templateBuilder" style="display:none">'. $templateWithoutBody.'</textarea>';
         $templateWithoutBody = str_replace('||BODY||', '', $templateWithoutBody);
-        $libraries = $this->renderView('MauticGrapeJsBundle:'.$templateDirectory.':head.html.php', [
+        $libraries = $this->renderView('MauticBeefreeBundle:'.$templateDirectory.':head.html.php', [
             'siteUrl'     => $coreParametersHelpers->getParameter('site_url'),
         ]);
         $templateForBuilder = str_replace('</head>', $libraries.'</head>', $templateWithoutBody);
 
-        $builderCode = $this->renderView('MauticGrapeJsBundle:'.$templateDirectory.':builder.html.php', ['images'=>$this->get('mautic.grape.js.uploader')->getImages()]);
+        $builderCode = $this->renderView('MauticBeefreeBundle:'.$templateDirectory.':builder.html.php', ['images'=>$this->get('mautic.beefree.js.uploader')->getImages()]);
         $templateForBuilder = str_replace('</body>', $builderCode.$hiddenTemplate.'</body>', $templateForBuilder);
 
 
         return $this->render(
-            'MauticGrapeJsBundle:'.$templateDirectory.':body.html.php',
+            'MauticBeefreeBundle:'.$templateDirectory.':body.html.php',
             [
                 'templateForBuilder'     => $templateForBuilder,
             ]

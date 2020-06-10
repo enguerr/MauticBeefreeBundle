@@ -9,7 +9,7 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticGrapeJsBundle\Controller;
+namespace MauticPlugin\MauticBeefreeBundle\Controller;
 
 use MauticPlugin\MauticBeefreeBundle\Uploader\BeefreeUploader;
 use Symfony\Component\HttpFoundation\JsonResponse;

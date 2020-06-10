@@ -10,7 +10,7 @@
  */
 
 return [
-    'name'        => 'Mautic BeeFree Bundle',
+    'name'        => 'Beefree plugin',
     'description' => 'BeeFree integration for Mautic',
     'author'      => 'enguer.com',
     'version'     => '1.0.0',
@@ -28,7 +28,7 @@ return [
         'helpers' => [],
         'other'   => [
             'mautic.beefree.js.uploader' => [
-                'class'     => MauticPlugin\MauticBeefreeBundle\Uploader\BeeFreeUploader::class,
+                'class'     => MauticPlugin\MauticBeefreeBundle\Uploader\BeefreeUploader::class,
                 'arguments' => [
                     'mautic.helper.file_uploader',
                     'mautic.helper.core_parameters',
@@ -39,7 +39,7 @@ return [
         'models'       => [],
         'integrations' => [
             'mautic.integration.beefree' => [
-                'class' => \MauticPlugin\MauticBeefreeBundle\Integration\BeeFreeIntegration::class,
+                'class' => \MauticPlugin\MauticBeefreeBundle\Integration\BeefreeIntegration::class,
             ],
         ],
     ],
