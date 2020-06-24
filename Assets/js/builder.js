@@ -1,4 +1,3 @@
-
 Mautic.launchCustomBuilder = function (formName, actionName) {
     var currentActiveTemplate = mQuery('.theme-selected').find('.select-theme-link').attr('data-theme');
     var builderUrl = (mQuery('#builder_url').val()).replace('s/emails/','s/beefree/email/')+'?template=' + currentActiveTemplate;
@@ -12,29 +11,75 @@ Mautic.launchCustomBuilder = function (formName, actionName) {
 }
 
 /**
- * Open a popup
+ * Close iframe
+ * @param options
+ */
+Mautic.closeNewWindowTemp =  function (options) {
+    console.log('close editor');
+    var beefree = document.getElementById('beefree');
+    beefree.remove();
+}
+
+/**
+ * Open an iframe
  * @param options
  */
 Mautic.loadNewWindowTemp =  function (options) {
-    if (options.windowUrl) {
-        Mautic.startModalLoadingBar();
+    var div = document.createElement('div');
+    div.style.position = "fixed";
+    div.style.top = "0";
+    div.style.left = "0";
+    div.style.bottom = "0";
+    div.style.zIndex = "10000";
+    div.style.width = "100%";
+    div.style.height = "100%";
+    div.style.border = "0";
+    div.style.background = "#fff";
+    div.className = "fullScreen";
+    div.id = 'beefree';
 
-        var popupName = 'mauticpopup';
-        if (options.popupName) {
-            popupName = options.popupName;
-        }
+    var toolbarbg = document.createElement('div');
+    toolbarbg.style.position = 'fixed';
+    toolbarbg.style.top = "0";
+    toolbarbg.style.left = "0";
+    toolbarbg.style.zIndex = "-1";
+    toolbarbg.style.width = "100%";
+    toolbarbg.style.height = "55px";
+    toolbarbg.style.margin = "5px";
+    toolbarbg.style.background = "#515658";
+    toolbarbg.style.border = "0";
 
-        setTimeout(function () {
-            var opener = window.open(options.windowUrl, popupName, 'height=600,width=1100');
+    var toolbar = document.createElement('div');
+    toolbar.style.position = 'fixed';
+    toolbar.style.top = "0";
+    toolbar.style.left = "0";
+    toolbar.style.zIndex = "10000";
+    toolbar.style.right = "150px";
+    toolbar.style.height = "55px";
+    toolbar.style.margin = "5px";
+    toolbar.style.background = "#515658";
+    toolbar.style.border = "0";
 
-            if (!opener || opener.closed || typeof opener.closed == 'undefined') {
-                alert(mauticLang.popupBlockerMessage);
-            } else {
-                opener.onload = function () {
-                    Mautic.stopModalLoadingBar();
-                    Mautic.stopIconSpinPostEvent();
-                };
-            }
-        }, 100);
-    }
+    var buttonexit = document.createElement('button');
+    buttonexit.innerText = "FERMER";
+    buttonexit.className = "btn btn-primary";
+    buttonexit.style.float = 'right';
+    buttonexit.style.margin = '12px';
+    buttonexit.style.padding = '6px 12px';
+    buttonexit.onclick = function () {
+        Mautic.closeNewWindowTemp();
+    };
+
+
+    var iframe = document.createElement('iframe');
+    //iframe.style.display = "none";
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.style.border = "0";
+    iframe.src = options.windowUrl;
+    toolbar.appendChild(buttonexit);
+    div.appendChild(toolbar);
+    div.appendChild(toolbarbg);
+    div.appendChild(iframe);
+    document.body.appendChild(div);
 }

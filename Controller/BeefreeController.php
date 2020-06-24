@@ -75,7 +75,6 @@ class BeefreeController extends CommonController
         $content = EmojiHelper::toEmoji($content, 'short');
 
         $logicalName = $this->factory->getHelper('theme')->checkForTwigTemplate(':'.$template.':'.$objectType.'.html.php');
-
         $templateWithBody =  $this->renderView(
             $logicalName,
             [

@@ -26,9 +26,87 @@
         right: 0px;
     }
 </style>
-<div id="gjs" style="height:0px; overflow:hidden;"></div>
+<script src="https://app-rsrc.getbee.io/plugin/BeePlugin.js" type="text/javascript"></script>
+<div id="bee-plugin-container"></div>
 <script type="text/javascript">
 
+    var endpoint = "https://auth.getbee.io/apiauth";
+
+    var payload = {
+        client_id: "2efb5f4f-f7c6-4bd7-a7c1-0ea778839efd", // Enter your client id
+        client_secret: "6FdtxHwfVAQMPHz1roVHnDhM21z8rQguoWx49vvCq4OW5jaOtt24", // Enter your secret key
+        grant_type: "password" // Do not change
+    };
+    var specialLinks = [{
+        type: 'close',
+        label: 'SpecialLink.Unsubscribe',
+        link: 'http://[unsubscribe]/'
+    }];
+
+    var save = function (filename, content) {
+        /*saveAs(
+            new Blob([content], { type: 'text/plain;charset=utf-8' }),
+            filename
+        );*/
+        console.log('saving ',filename,content);
+        mQuery('textarea.builder-html').val(content);
+    };
+
+    $.post(endpoint, payload)
+        .done(function(data) {
+            var token = data;
+            // Define a global variable to reference the BEE Plugin instance.
+            // Tip: Later, you can call API methods on this instance, e.g. bee.load(template)
+            var bee;
+
+            // Define a simple BEE Plugin configuration...
+            var config = {
+                uid: 'eng',
+                container: 'bee-plugin-container',
+                autosave: 30, // [optional, default:false]
+                language: 'fr-FR', // [optional, default:'en-US']
+                trackChanges: false, // [optional, default: false]
+                //specialLinks: specialLinks, // [optional, default:[]]
+                /*mergeTags: mergeTags, // [optional, default:[]]
+                mergeContents: mergeContents, // [optional, default:[]]*/
+                preventClose: true, // [optional, default:false]
+                //editorFonts : {}, // [optional, default: see description]
+                //contentDialog : {}, // [optional, default: see description]
+                //defaultForm : {}, // [optional, default: {}]
+                //roleHash : "", // [optional, default: ""]
+                //rowDisplayConditions : {}, // [optional, default: {}]
+                /*onChange: function (jsonFile, response) {
+                    console.log('json', jsonFile);
+                    console.log('response', response);
+                },*/
+                onSave: function (jsonFile, htmlFile) {
+                    save('newsletter.html', htmlFile);
+                },
+                /*onSaveAsTemplate: function (jsonFile) { // + thumbnail?
+                    save('newsletter-template.json', jsonFile);
+                },*/
+                /*onAutoSave: function (jsonFile) { // + thumbnail?
+                    console.log(new Date().toISOString() + ' autosaving...');
+                    window.localStorage.setItem('newsletter.autosave', jsonFile);
+                },*/
+                /*onSend: function (htmlFile) {
+                    //write your send test function here
+                },*/
+                /*onError: function (errorMessage) {
+                    console.log('onError ', errorMessage);
+                }*/
+            }
+
+            // Call the "create" method:
+            // Tip:  window.BeePlugin is created automatically by the library...
+            window.BeePlugin.create(token, config, function(instance) {
+                bee = instance;
+                // You may now use this instance...
+                var template = {  }; // Any valid template, as JSON object
+
+                bee.start(template);
+            });
+        });
 
 
 /*    // Set up BeeFree editor with the Newsletter plugin

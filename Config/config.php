@@ -47,6 +47,15 @@ return [
                 'class' => \MauticPlugin\MauticBeefreeBundle\Integration\BeefreeIntegration::class,
             ],
         ],
+        'repositories' => [
+            'mautic.beefree.repository.beefreeTheme' => [
+                'class'     => \MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository::class,
+                'factory'   => ['@doctrine.orm.entity_manager', 'getRepository'],
+                'arguments' => [
+                    \MauticPlugin\MauticBeefreeBundle\Entity\BeefreeTheme::class,
+                ],
+            ],
+        ],
     ],
     'routes'     => [
         'public' => [
@@ -59,6 +68,10 @@ return [
             'mautic_beefree_action' => [
                 'path'       => '/beefree/{objectType}/builder/{objectId}',
                 'controller' => 'MauticBeefreeBundle:Beefree:builder',
+            ],
+            'mautic_email_action' => [
+                'path'       => '/emails/{objectAction}/{objectId}',
+                'controller' => 'MauticBeefreeBundle:Email:execute',
             ],
         ],
     ],
