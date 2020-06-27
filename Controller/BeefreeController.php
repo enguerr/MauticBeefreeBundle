@@ -15,6 +15,9 @@ use Mautic\CoreBundle\Controller\CommonController;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\CoreBundle\Helper\EmojiHelper;
 use Mautic\CoreBundle\Helper\InputHelper;
+use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeTheme;
+use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository;
+
 
 class BeefreeController extends CommonController
 {
@@ -102,7 +105,15 @@ class BeefreeController extends CommonController
         ]);
         $templateForBuilder = str_replace('</head>', $libraries.'</head>', $templateWithoutBody);
 
-        $builderCode = $this->renderView('MauticBeefreeBundle:'.$templateDirectory.':builder.html.php', ['images'=>$this->get('mautic.beefree.js.uploader')->getImages()]);
+        //get template content
+        $bfrepo = $this->getDoctrine()->getRepository(BeefreeTheme::class);
+        $contenttemplate = $bfrepo->getTheme($template);
+
+        $builderCode = $this->renderView('MauticBeefreeBundle:'.$templateDirectory.':builder.html.php', [
+            'images'=>$this->get('mautic.beefree.js.uploader')->getImages(),
+            'contenttemplate'  => $contenttemplate->getContent(),
+
+        ]);
         $templateForBuilder = str_replace('</body>', $builderCode.$hiddenTemplate.'</body>', $templateForBuilder);
 
 

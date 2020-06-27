@@ -73,6 +73,7 @@ if (!isset($previewUrl)) {
         <div class="col-md-9 height-auto bg-white">
             <div class="row">
                 <div class="col-xs-12">
+                    <textarea class="template-builder-html" name="beefree-template" style="visibility: hidden;position:absolute"></textarea>
                     <!-- tabs controls -->
                     <ul class="bg-auto nav nav-tabs pr-md pl-md">
                         <li class="active">
@@ -106,11 +107,11 @@ if (!isset($previewUrl)) {
                             </div>
                             <?php echo $view->render('MauticBeefreeBundle:Helper:theme_select.html.php', [
                                 'type'   => 'email',
-                                'themes' => $themes,
+                                'bfthemes' => $bfthemes,
                                 'active' => $form['template']->vars['value'],
                             ]); ?>
                         </div>
-                        <div class="tab-pane fade in active bdr-w-0" id="email-container">
+                        <div class="tab-pane fade in bdr-w-0" id="email-container">
                             <div class="row">
                                 <div class="col-md-12">
                                     <?php echo $view['form']->row($form['template']); ?>
@@ -254,7 +255,6 @@ if (!isset($previewUrl)) {
 <?php if ($filterSelectPrototype instanceof FormView) : ?>
     <div id="filterSelectPrototype" data-prototype="<?php echo $view->escape($view['form']->widget($filterSelectPrototype)); ?>"></div>
 <?php endif; ?>
-
     <div class="hide" id="templates">
         <?php foreach ($templates as $dataKey => $template): ?>
             <?php $attr = ($dataKey == 'tags') ? ' data-placeholder="'.$view['translator']->trans('mautic.lead.tags.select_or_create').'" data-no-results-text="'.$view['translator']->trans('mautic.lead.tags.enter_to_create').'" data-allow-add="true" onchange="Mautic.createLeadTag(this)"' : ''; ?>

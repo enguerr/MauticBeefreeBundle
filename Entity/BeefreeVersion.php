@@ -21,9 +21,9 @@ use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository;
 
 /**
- * @ORM\Entity(repositoryClass="MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository")
+ * @ORM\Entity(repositoryClass="MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersionRepository")
  */
-class BeefreeTheme
+class BeefreeVersion
 {
     /**
      * @var int
@@ -33,17 +33,12 @@ class BeefreeTheme
     /**
      * @var string
      */
-    private $title;
-
-    /**
-     * @var string
-     */
     private $name;
 
     /**
-     * @var string
+     * @var int
      */
-    private $email;
+    private $email_id;
     /**
      * @var string
      */
@@ -53,6 +48,11 @@ class BeefreeTheme
      * @var string
      */
     private $content;
+
+    /**
+     * @var string
+     */
+    private $json;
 
     public function __construct()
     {
@@ -65,17 +65,13 @@ class BeefreeTheme
     {
         $builder = new ClassMetadataBuilder($metadata);
 
-        $builder->setTable('beefree_theme')
-            ->setCustomRepositoryClass(BeefreeThemeRepository::class);
+        $builder->setTable('beefree_version')
+            ->setCustomRepositoryClass(BeefreeVersionRepository::class);
 
         $builder->addId();
 
         $builder->createField('name', 'string')
             ->columnName('name')
-            ->build();
-
-        $builder->createField('title', 'string')
-            ->columnName('title')
             ->build();
 
         $builder->createField('preview', 'blob')
@@ -86,14 +82,14 @@ class BeefreeTheme
             ->columnName('content')
             ->build();
 
-        #TODO
-        /*$builder->createOneToMany('email', 'Email')
-            ->setIndexBy('id')
-            ->mappedBy('email')
-            ->cascadePersist()
-            ->fetchExtraLazy()
-            ->build();*/
+        $builder->createField('json', 'text')
+            ->columnName('json')
+            ->build();
 
+        //fake ManyToOne
+        $builder->createField('email_id', 'integer')
+            ->columnName('email_id')
+            ->build();
     }
 
     /**
@@ -153,6 +149,14 @@ class BeefreeTheme
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJson()
+    {
+        return $this->json;
     }
 
     /**

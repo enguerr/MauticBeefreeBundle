@@ -44,12 +44,12 @@
     }];
 
     var save = function (filename, content) {
-        /*saveAs(
-            new Blob([content], { type: 'text/plain;charset=utf-8' }),
-            filename
-        );*/
-        console.log('saving ',filename,content);
-        mQuery('textarea.builder-html').val(content);
+        console.log('saving ',filename,mQuery('textarea.builder-html', window.parent.document));
+        mQuery('textarea.builder-html', window.parent.document).val(content);
+    };
+    var saveAsTemplate = function (filename, content) {
+        console.log('saving template',filename,mQuery('textarea.template-builder-html', window.parent.document));
+        mQuery('textarea.template-builder-html', window.parent.document).val(content);
     };
 
     $.post(endpoint, payload)
@@ -75,16 +75,17 @@
                 //defaultForm : {}, // [optional, default: {}]
                 //roleHash : "", // [optional, default: ""]
                 //rowDisplayConditions : {}, // [optional, default: {}]
-                /*onChange: function (jsonFile, response) {
+                onChange: function (jsonFile, response) {
                     console.log('json', jsonFile);
                     console.log('response', response);
-                },*/
+                    saveAsTemplate('newsletter-template.json', jsonFile);
+                },
                 onSave: function (jsonFile, htmlFile) {
                     save('newsletter.html', htmlFile);
                 },
-                /*onSaveAsTemplate: function (jsonFile) { // + thumbnail?
-                    save('newsletter-template.json', jsonFile);
-                },*/
+                onSaveAsTemplate: function (jsonFile) { // + thumbnail?
+                    saveAsTemplate('newsletter-template.json', jsonFile);
+                },
                 /*onAutoSave: function (jsonFile) { // + thumbnail?
                     console.log(new Date().toISOString() + ' autosaving...');
                     window.localStorage.setItem('newsletter.autosave', jsonFile);
@@ -102,7 +103,7 @@
             window.BeePlugin.create(token, config, function(instance) {
                 bee = instance;
                 // You may now use this instance...
-                var template = {  }; // Any valid template, as JSON object
+                var template = <?php echo $contenttemplate; ?>; // Any valid template, as JSON object
 
                 bee.start(template);
             });

@@ -16,10 +16,11 @@ return [
     'version'     => '1.0.0',
     'services' => [
         'events'  => [
-            'mautic.beefree.js.asset.subscriber'=>[
-                'class'=> \MauticPlugin\MauticBeefreeBundle\EventListener\AssetSubscriber::class,
+            'mautic.beefree.js.event.subscriber'=>[
+                'class'=> \MauticPlugin\MauticBeefreeBundle\EventListener\EventSubscriber::class,
                 'arguments' => [
-                    'mautic.helper.integration'
+                    'mautic.helper.integration',
+                    'mautic.beefree.repository.beefreeVersion'
                 ],
             ],
         ],
@@ -41,7 +42,12 @@ return [
                 ],
             ],
         ],
-        'models'       => [],
+/*        'models'       => [
+            'mautic.email.model.beefreeTheme' => [
+                'class'     =>   \MauticPlugin\MauticBeefreeBundle\Model\BeefreeThemeModel::class,
+                'arguments' => []
+            ]
+        ],*/
         'integrations' => [
             'mautic.integration.beefree' => [
                 'class' => \MauticPlugin\MauticBeefreeBundle\Integration\BeefreeIntegration::class,
@@ -53,6 +59,13 @@ return [
                 'factory'   => ['@doctrine.orm.entity_manager', 'getRepository'],
                 'arguments' => [
                     \MauticPlugin\MauticBeefreeBundle\Entity\BeefreeTheme::class,
+                ],
+            ],
+            'mautic.beefree.repository.beefreeVersion' => [
+                'class'     => \MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersionRepository::class,
+                'factory'   => ['@doctrine.orm.entity_manager', 'getRepository'],
+                'arguments' => [
+                    \MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersion::class,
                 ],
             ],
         ],
@@ -71,7 +84,7 @@ return [
             ],
             'mautic_email_action' => [
                 'path'       => '/emails/{objectAction}/{objectId}',
-                'controller' => 'MauticBeefreeBundle:Email:execute',
+                'controller' => 'MauticBeefreeBundle:BeefreeEmail:execute',
             ],
         ],
     ],

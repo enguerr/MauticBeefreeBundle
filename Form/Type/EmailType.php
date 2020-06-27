@@ -42,7 +42,7 @@ class EmailType extends BaseEmailType
             ],
             [
                 'name'  => 'builder_beefree',
-                'label' => 'BeeFree',
+                'label' => 'mautic.beefree.builder',
                 'attr'  => [
                     'class'   => 'btn btn-default btn-dnd btn-nospin text-success btn-builder',
                     'icon'    => 'fa fa-beer',

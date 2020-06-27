@@ -29,7 +29,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class EmailController extends BaseController
+class BeefreeEmailController extends BaseController
 {
 
     /**
@@ -221,7 +221,8 @@ class EmailController extends BaseController
             ],
             'RETURN_ARRAY'
         );
-        $bffactory = $this->getEntityManager()->getRepository('MauticBeefreeBundle:BeefreeTheme');
+        //$bffactory = $this->getModel('mautic.beefree.model.beefreeTheme')
+        $bfrepo = $this->getDoctrine()->getRepository(BeefreeTheme::class);
         return $this->delegateView(
             [
                 'viewParameters' => [
@@ -230,7 +231,7 @@ class EmailController extends BaseController
                     'slots'              => $this->buildSlotForms($slotTypes),
                     'sections'           => $this->buildSlotForms($sections),
                     'themes'             => $this->factory->getInstalledThemes('email', true),
-                    'bfthemes'           => $bffactory->getInstalledThemes('email', true),
+                    'bfthemes'           => $bfrepo->getInstalledThemes('email', true),
                     'email'              => $entity,
                     'forceTypeSelection' => $forceTypeSelection,
                     'attachmentSize'     => $attachmentSize,
@@ -254,5 +255,4 @@ class EmailController extends BaseController
             ]
         );
     }
-
 }

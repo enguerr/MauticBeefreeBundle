@@ -1,9 +1,21 @@
-Mautic.launchCustomBuilder = function (formName, actionName) {
-    var currentActiveTemplate = mQuery('.theme-selected').find('.select-theme-link').attr('data-theme');
+Mautic.launchCustomBuilder = function (formName, actionName,elem) {
+    var currentLink = mQuery(elem);
+    if (currentLink) {
+        mQuery('.beefree-theme-list .panel').removeClass('beefree-selected');
+        currentLink.closest('.panel').addClass('beefree-selected');
+        mQuery('.beefree-theme-list .select-theme-selected').addClass('hide');
+        mQuery('.beefree-theme-list .select-theme-link').removeClass('hide');
+        currentLink.closest('.panel').find('.select-theme-selected').removeClass('hide');
+        currentLink.addClass('hide');
+    }
+    var currentActiveTemplate = mQuery('.beefree-selected').find('.select-theme-link').attr('data-theme-beefree');
+    console.log('custom builder ',currentActiveTemplate);
     var builderUrl = (mQuery('#builder_url').val()).replace('s/emails/','s/beefree/email/')+'?template=' + currentActiveTemplate;
+    console.log('builder url ',builderUrl);
     if ( (mQuery('#builder_url').val()).indexOf('pages') !== -1) {
         builderUrl = (mQuery('#builder_url').val()).replace('s/pages/','s/beefree/page/')+'?template=' + currentActiveTemplate;
     }
+
     Mautic.loadNewWindowTemp({
         "windowUrl": builderUrl+"&t="+new Date().getTime(),
         "popupName": "beefreePopup"

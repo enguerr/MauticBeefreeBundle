@@ -15,17 +15,17 @@ use Doctrine\ORM\NoResultException;
 use Mautic\CoreBundle\Entity\CommonRepository;
 
 /**
- * Class BeefreeThemeRepository.
+ * Class BeefreeVersionRepository.
  */
 
-class BeefreeThemeRepository extends CommonRepository
+class BeefreeVersionRepository extends CommonRepository
 {
     /**
      * @param $hash
      * @param $subject
      * @param $body
      */
-    /*public function saveBeefreeTheme($hash, $name, $preview, $content)
+    public function saveBeefreeVersion($hash, $name, $preview, $content)
     {
         $db = $this->getEntityManager()->getConnection();
 
@@ -46,7 +46,7 @@ class BeefreeThemeRepository extends CommonRepository
 
             return false;
         }
-    }*/
+    }
 
     /**
      * @param string $string  md5 hash or content
