@@ -78,9 +78,11 @@
                 onChange: function (jsonFile, response) {
                     console.log('json', jsonFile);
                     console.log('response', response);
+                    //save('newsletter.html', reponse.);
                     saveAsTemplate('newsletter-template.json', jsonFile);
                 },
                 onSave: function (jsonFile, htmlFile) {
+                    saveAsTemplate('newsletter-template.json', jsonFile);
                     save('newsletter.html', htmlFile);
                 },
                 onSaveAsTemplate: function (jsonFile) { // + thumbnail?

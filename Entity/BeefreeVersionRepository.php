@@ -25,17 +25,17 @@ class BeefreeVersionRepository extends CommonRepository
      * @param $subject
      * @param $body
      */
-    public function saveBeefreeVersion($hash, $name, $preview, $content)
+    public function saveBeefreeVersion($name, $content,$json,$email_id)
     {
         $db = $this->getEntityManager()->getConnection();
 
         try {
             $db->insert(
-                MAUTIC_TABLE_PREFIX.'beefree_theme',
+                MAUTIC_TABLE_PREFIX.'beefree_version',
                 [
-                    'id'           => $hash,
                     'name'         => $name,
-                    'preview'      => $preview,
+                    'email_id'      => $email_id,
+                    'json'      => $json,
                     'content'      => $content,
                 ]
             );
@@ -43,7 +43,7 @@ class BeefreeVersionRepository extends CommonRepository
             return true;
         } catch (\Exception $e) {
             error_log($e);
-
+die($e->getMessage());
             return false;
         }
     }

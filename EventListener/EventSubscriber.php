@@ -74,8 +74,10 @@ class EventSubscriber extends CommonSubscriber
      */
     public function saveVersion(EmailEvent $emailEvent)
     {
-        $request = $this->request->all();
-        print_r($request);
-        die('bvrepos');
+        $json = $this->request->get('beefree-template');
+        $emailForm = $this->request->get('emailform');
+        $emailName = $emailForm['name'];
+        $content = $emailForm['customHtml'];
+        $this->beefreeVersionRepository->saveBeefreeVersion($emailName.' - '.date('d/m/Y H:i:s'),$content,$json,$emailEvent->getEmail()->getId());
     }
 }
