@@ -1,6 +1,6 @@
 Mautic.launchCustomBuilder = function (formName, actionName,elem) {
     var currentLink = mQuery(elem);
-    var currentActiveTemplate = mQuery('.beefree-selected').find('.select-theme-link').attr('data-theme-beefree');
+    var currentActiveTemplate = currentLink.attr('data-theme-beefree');
     console.log('custom builder ',currentActiveTemplate);
     var builderUrl = (mQuery('#builder_url').val()).replace('s/emails/','s/beefree/email/')+'?template=' + currentActiveTemplate;
     console.log('builder url ',builderUrl);

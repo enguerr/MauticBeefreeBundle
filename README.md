@@ -41,3 +41,7 @@ You can also select one of the template from Template tab.
 Goto https://github.com/BEE-Plugin/BEE-FREE-templates
 With phpmyadmin on table beefree-theme, add json / name / preview (blob as jpeg image)
 
+I've added an export of my theme table with 3 templates. 
+You can edit the sql to fit your requirement (MAUTIC_PREFIX)
+You can find it in the Sql Folder from the repo
+

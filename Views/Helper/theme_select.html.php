@@ -11,41 +11,42 @@
 $codeMode   = 'mautic_code_mode';
 $isCodeMode = ($active == $codeMode);
 ?>
-<?php if ($bfthemes) : ?>
-    <div class="row">
-        <?php if ($version) : ?>
-        <div class="col-md-3 beefree-theme-list">
-            <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    <div style="height:64px;">
-                        <h3><?php echo $view['translator']->trans('mautic.beefree.current.title'); ?></h3>
-                        <small><?php echo $version->getName(); ?></small>
-                    </div>
-                    <div class="panel-body text-center" style="height: 210px">
-                        <i class="fa fa-file fa-5x text-muted" aria-hidden="true" style="padding-top: 50px; color: #E4E4E4;"></i>
-                    </div>
-                    <a href="#" type="button" data-theme-beefree="current" class="select-theme-link btn btn-default btn-dnd btn-nospin text-success btn-builder btn-copy " onclick="Mautic.launchCustomBuilder('emailform','email',this);">
-                        <i class="fa fa-beer "></i>
-                        <?php echo $view['translator']->trans('mautic.beefree.current'); ?>
-                    </a>
+
+<div class="row">
+    <?php if ($version) : ?>
+    <div class="col-md-3 beefree-theme-list">
+        <div class="panel panel-default">
+            <div class="panel-body text-center">
+                <div style="height:64px;">
+                    <h3><?php echo $view['translator']->trans('mautic.beefree.current.title'); ?></h3>
+                    <small><?php echo $version->getName(); ?></small>
                 </div>
+                <div class="panel-body text-center" style="height: 210px">
+                    <i class="fa fa-file fa-5x text-muted" aria-hidden="true" style="padding-top: 50px; color: #E4E4E4;"></i>
+                </div>
+                <a href="#" type="button" data-theme-beefree="current" class="select-theme-link btn btn-default btn-dnd btn-nospin text-success btn-builder btn-copy " onclick="Mautic.launchCustomBuilder('emailform','email',this);">
+                    <i class="fa fa-beer "></i>
+                    <?php echo $view['translator']->trans('mautic.beefree.current'); ?>
+                </a>
             </div>
         </div>
-        <?php endif; ?>
-        <div class="col-md-3 beefree-theme-list">
-            <div class="panel panel-default <?php echo $isCodeMode ? 'beefree-selected' : ''; ?>">
-                <div class="panel-body text-center">
-                    <h3><?php echo $view['translator']->trans('mautic.beefree.from-scratch'); ?></h3>
-                    <div class="panel-body text-center" style="height: 250px">
-                        <i class="fa fa-plus fa-5x text-muted" aria-hidden="true" style="padding-top: 50px; color: #E4E4E4;"></i>
-                    </div>
-                    <a href="#" type="button" data-theme-beefree="new" class="select-theme-link btn btn-default btn-dnd btn-nospin text-success btn-builder btn-copy " onclick="Mautic.launchCustomBuilder('emailform', 'email',this);">
-                        <i class="fa fa-beer "></i>
-                        <?php echo $view['translator']->trans('mautic.beefree.from-scratch'); ?>
-                    </a>
+    </div>
+    <?php endif; ?>
+    <div class="col-md-3 beefree-theme-list">
+        <div class="panel panel-default ">
+            <div class="panel-body text-center">
+                <h3><?php echo $view['translator']->trans('mautic.beefree.from-scratch'); ?></h3>
+                <div class="panel-body text-center" style="height: 250px">
+                    <i class="fa fa-plus fa-5x text-muted" aria-hidden="true" style="padding-top: 50px; color: #E4E4E4;"></i>
                 </div>
+                <a href="#" type="button" data-theme-beefree="new" class="select-theme-link btn btn-default btn-dnd btn-nospin text-success btn-builder btn-copy " onclick="Mautic.launchCustomBuilder('emailform', 'email',this);">
+                    <i class="fa fa-beer "></i>
+                    <?php echo $view['translator']->trans('mautic.beefree.from-scratch'); ?>
+                </a>
             </div>
         </div>
+    </div>
+    <?php if ($bfthemes) : ?>
         <?php foreach ($bfthemes as $themeInfo) : ?>
 
             <?php
@@ -95,6 +96,6 @@ $isCodeMode = ($active == $codeMode);
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
-        <div class="clearfix"></div>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+    <div class="clearfix"></div>
+</div>
