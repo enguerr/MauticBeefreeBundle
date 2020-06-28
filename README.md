@@ -7,13 +7,14 @@ This is an experimental BeeFree integration for Mautic
 
 
 ### Installation from command line
-1. composer require enguerr/MauticBeefreeBundle
-2. php app/console mautic:plugins:reload
-3. Go to /s/plugins and enable BeeFree integration
+1. cd MAUTIC_DIR/plugins && git clone https://github.com/enguerr/MauticBeefreeBundle (or unzip the release)
+2. app/console cache:clear --env=prod
+3. app/console mautic:plugins:reload
 4. Go to https://beefree.io, create an account and an application. Get API_KEY et API_SECRET
-5. Fill in the field API_KEY and API_SECRET - Save
-6. php app/console cache:clear --env=dev
-7. php app/console doctrine:schema:update --force
+5. Navigate to /s/plugins (Configuration > Plugins ) and enable BeeFree integration
+6. Fill in the field API_KEY and API_SECRET in features tab && Save
+7. app/console cache:clear --env=prod
+8. php app/console doctrine:schema:update --force
 
 ### Usage
 Just go to email create new/edit and click to Launch builder BEEFREE button. Should open new popup iframe with BeeFree plugin.
