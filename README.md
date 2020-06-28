@@ -10,7 +10,7 @@ This is an experimental BeeFree integration for Mautic
 1. cd MAUTIC_DIR/plugins && git clone https://github.com/enguerr/MauticBeefreeBundle (or unzip the release)
 2. app/console cache:clear --env=prod
 3. app/console mautic:plugins:reload
-4. Go to https://beefree.io, create an account and an application. Get API_KEY et API_SECRET
+4. Go to https://developers.beefree.io, create an account and an application. Get API_KEY et API_SECRET
 5. Navigate to /s/plugins (Configuration > Plugins ) and enable BeeFree integration
 6. Fill in the field API_KEY and API_SECRET in features tab && Save
 7. app/console cache:clear --env=prod
