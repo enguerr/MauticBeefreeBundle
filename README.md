@@ -1,6 +1,10 @@
 # BeeFree integration for Mautic
+![Beefree Mautic Plugin](./Beefree-dash.JPG "Mautic beefree.io plugin integration")
+![Beefree Mautic Plugin](./Beefree-editor.JPG "Mautic beefree.io plugin integration")
 
 This is an experimental BeeFree integration for Mautic
+- 06/28/2020 alpha1 release
+
 
 ### Installation from command line
 1. composer require enguerr/MauticBeefreeBundle
