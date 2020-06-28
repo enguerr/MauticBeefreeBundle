@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="e7c1aa19-fa91-4e08-a81e-0b570e1ce825" name="mautic-ls" url="http://172.19.152.81">
+        <fileTransfer host="172.19.152.81" port="22" rootFolder="/var/www/mautic" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="mautic-test">
+  <component name="PublishConfigData" serverName="mautic-ls">
     <serverData>
+      <paths name="mautic-ls">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/plugins/MauticBeefreeBundle" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="mautic-test">
         <serverdata>
           <mappings>

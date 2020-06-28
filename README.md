@@ -3,7 +3,7 @@
 ![Beefree Mautic Plugin](./Beefree-editor.JPG "Mautic beefree.io plugin integration")
 
 This is an experimental BeeFree integration for Mautic
-- 06/28/2020 alpha1 release
+- 06/28/2020 alpha0 release
 
 
 ### Installation from command line
