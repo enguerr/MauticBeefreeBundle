@@ -1,12 +1,10 @@
 <?php
-
-/*
- * @copyright   2019 Mautic Contributors. All rights reserved
- * @author      Mautic
- *
- * @link        http://mautic.org
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * @package     Mautic
+ * @copyright   2020 Enguerr. All rights reserved
+ * @author      Enguerr
+ * @link        https://www.enguer.com
+ * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
 namespace MauticPlugin\MauticBeefreeBundle\Controller;
@@ -16,11 +14,13 @@ use Mautic\CoreBundle\Helper\CoreParametersHelper;
 use Mautic\CoreBundle\Helper\EmojiHelper;
 use Mautic\CoreBundle\Helper\InputHelper;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeTheme;
-use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository;
+use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersion;
 
 
 class BeefreeController extends CommonController
 {
+    private $parametersHelper;
+
     /**
      * Builder.
      *
@@ -31,6 +31,12 @@ class BeefreeController extends CommonController
      */
     public function builderAction($objectType, $objectId)
     {
+        $integrationHelper = $this->get('mautic.helper.integration');
+        $integrations      = $integrationHelper->getIntegrationObjects(null, [], true, null, true);
+        $beefree = $integrations['Beefree'];
+        $settings = $beefree->getIntegrationSettings();
+        $featureSettings = $settings->getFeatureSettings();
+
         /** @var \Mautic\EmailBundle\Model\EmailModel|\Mautic\EmailBundle\Model\EmailModel $model */
         $model = $this->getModel($objectType);
         $aclToCheck = 'email:emails:';
@@ -107,12 +113,29 @@ class BeefreeController extends CommonController
 
         //get template content
         $bfrepo = $this->getDoctrine()->getRepository(BeefreeTheme::class);
-        $contenttemplate = $bfrepo->getTheme($template);
+        $bvrepo = $this->getDoctrine()->getRepository(BeefreeVersion::class);
+        $activetemplate = $bfrepo->getNewTemplate();
+        switch ($template){
+            case "new":
+                $contenttemplate = $bvrepo->getNewVersion();
+                $contenttemplate->setJson($activetemplate->getContent());
+                break;
+            case "undefined":
+            case "current":
+                $contenttemplate = null;
+                break;
+            default:
+                $contenttemplate = $bvrepo->getNewVersion();
+                $contenttemplate->setJson($bfrepo->getTheme($template)->getContent());
+                break;
+        }
 
         $builderCode = $this->renderView('MauticBeefreeBundle:'.$templateDirectory.':builder.html.php', [
             'images'=>$this->get('mautic.beefree.js.uploader')->getImages(),
-            'contenttemplate'  => $contenttemplate->getContent(),
-
+            'apikey' => $featureSettings['beefree_api_key'],
+            'apisecret' => $featureSettings['beefree_api_secret'],
+            'template' => $template,
+            'contenttemplate'  => ($contenttemplate)?$contenttemplate->getJson():'JSON.parse(atob(mQuery(\'textarea.template-builder-html\', window.parent.document).val()))',
         ]);
         $templateForBuilder = str_replace('</body>', $builderCode.$hiddenTemplate.'</body>', $templateForBuilder);
 

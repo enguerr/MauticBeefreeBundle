@@ -1,18 +1,17 @@
 <?php
 
-/*
- * @copyright   2019 Mautic Contributors. All rights reserved
- * @author      Mautic
- *
- * @link        http://mautic.org
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * @package     Mautic
+ * @copyright   2020 Enguerr. All rights reserved
+ * @author      Enguerr
+ * @link        https://www.enguer.com
+ * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
 return [
     'name'        => 'Beefree plugin',
     'description' => 'BeeFree integration for Mautic',
-    'author'      => 'enguer.com',
+    'author'      => 'Enguerr',
     'version'     => '1.0.0',
     'services' => [
         'events'  => [
@@ -29,7 +28,15 @@ return [
                 'class' => \MauticPlugin\MauticBeefreeBundle\Form\Type\EmailType::class,
                 'arguments' => 'mautic.factory',
                 'alias' => 'emailform'
-            ]
+            ],
+            'mautic.form.type.beefree' => array(
+                'class'     => 'MauticPlugin\MauticBeefreeBundle\Form\Type\ConfigType',
+                'alias'     => 'beefree',
+                'arguments' => array(
+                    'mautic.helper.core_parameters',
+                    'translator',
+                ),
+            ),
         ],
         'helpers' => [],
         'other'   => [
@@ -90,6 +97,6 @@ return [
     ],
     'menu'       => [],
     'parameters' => [
-        'beefree_image_directory'=> 'beefree'
+        'beefree_image_directory'=> 'beefree',
     ],
 ];

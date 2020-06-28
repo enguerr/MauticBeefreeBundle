@@ -1,12 +1,10 @@
 <?php
-
-/*
- * @copyright   2014 Mautic Contributors. All rights reserved
- * @author      Mautic
- *
- * @link        http://mautic.org
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * @package     Mautic
+ * @copyright   2020 Enguerr. All rights reserved
+ * @author      Enguerr
+ * @link        https://www.enguer.com
+ * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
 use Symfony\Component\Form\FormView;
@@ -73,7 +71,7 @@ if (!isset($previewUrl)) {
         <div class="col-md-9 height-auto bg-white">
             <div class="row">
                 <div class="col-xs-12">
-                    <textarea class="template-builder-html" name="beefree-template" style="visibility: hidden;position:absolute"></textarea>
+                    <textarea class="template-builder-html" name="beefree-template" style="visibility: hidden;position:absolute"><?php if ($version) echo $version->getJson(); else echo $version_post; ?></textarea>
                     <!-- tabs controls -->
                     <ul class="bg-auto nav nav-tabs pr-md pl-md">
                         <li class="active">
@@ -108,6 +106,7 @@ if (!isset($previewUrl)) {
                             <?php echo $view->render('MauticBeefreeBundle:Helper:theme_select.html.php', [
                                 'type'   => 'email',
                                 'bfthemes' => $bfthemes,
+                                'version' => $version,
                                 'active' => $form['template']->vars['value'],
                             ]); ?>
                         </div>

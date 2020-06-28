@@ -1,12 +1,10 @@
 <?php
-
-/*
- * @copyright   2015 Mautic Contributors. All rights reserved
- * @author      Mautic
- *
- * @link        http://mautic.org
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * @package     Mautic
+ * @copyright   2020 Enguerr. All rights reserved
+ * @author      Enguerr
+ * @link        https://www.enguer.com
+ * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
 namespace MauticPlugin\MauticBeefreeBundle\Entity;
@@ -49,26 +47,21 @@ die($e->getMessage());
     }
 
     /**
-     * @param string $string  md5 hash or content
-     * @param null   $subject If $string is the content, pass the subject to include it in the hash
+     * @param string $string  email_id
      *
-     * @return array
+     * @return BeefreeVersion
      */
-    /*public function findByHash($string, $subject = null)
+    public function getLastVersion($email_id)
     {
-        if (null !== $subject) {
-            // Combine subject with $string and hash together
-            $string = $subject.$string;
-        }
-
-        // Assume that $string is already a md5 hash if 32 characters
-        $hash = (strlen($string) !== 32) ? $hash = md5($string) : $string;
 
         $q = $this->createQueryBuilder($this->getTableAlias());
         $q->where(
-            $q->expr()->eq($this->getTableAlias().'.id', ':id')
+            $q->expr()->eq($this->getTableAlias().'.email_id', ':email_id')
         )
-            ->setParameter('id', $hash);
+            ->setParameter('email_id', $email_id)
+            ->orderBy($this->getTableAlias().'.id','DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1);
 
         try {
             $result = $q->getQuery()->getSingleResult();
@@ -77,15 +70,15 @@ die($e->getMessage());
         }
 
         return $result;
-    }*/
+    }
 
     /**
      * @return string
      */
-    /*public function getTableAlias()
+    public function getTableAlias()
     {
-        return 'bt';
-    }*/
+        return 'bv';
+    }
     /**
      * @param string $string  name
      *
@@ -114,4 +107,12 @@ die($e->getMessage());
     public function getInstalledThemes(){
         return $this->findAll();
     }
+    /**
+     * @return array
+     */
+    public function getNewVersion()
+    {
+        return new BeefreeVersion();
+    }
+
 }

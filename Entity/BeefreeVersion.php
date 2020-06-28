@@ -1,12 +1,10 @@
 <?php
-
-/*
- * @copyright   2020 Mautic Contributors. All rights reserved
- * @author      Mautic
- *
- * @link        http://mautic.org
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * @package     Mautic
+ * @copyright   2020 Enguerr. All rights reserved
+ * @author      Enguerr
+ * @link        https://www.enguer.com
+ * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
 namespace MauticPlugin\MauticBeefreeBundle\Entity;
@@ -47,7 +45,7 @@ class BeefreeVersion
     /**
      * @var string
      */
-    private $content;
+    private $content = '{}';
 
     /**
      * @var string
@@ -157,6 +155,13 @@ class BeefreeVersion
     public function getJson()
     {
         return $this->json;
+    }
+    /**
+     * @param mixed $json
+     */
+    public function setJson($json)
+    {
+        $this->json = $json;
     }
 
     /**

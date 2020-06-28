@@ -1,12 +1,10 @@
 <?php
-
-/*
- * @copyright   2015 Mautic Contributors. All rights reserved
- * @author      Mautic
- *
- * @link        http://mautic.org
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * @package     Mautic
+ * @copyright   2020 Enguerr. All rights reserved
+ * @author      Enguerr
+ * @link        https://www.enguer.com
+ * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
 namespace MauticPlugin\MauticBeefreeBundle\Entity;
@@ -78,14 +76,21 @@ class BeefreeThemeRepository extends CommonRepository
 
         return $result;
     }*/
+    /**
+     * @return array
+     */
+    public function getNewTemplate()
+    {
+        return new BeefreeTheme();
+    }
 
     /**
      * @return string
      */
-    /*public function getTableAlias()
+    public function getTableAlias()
     {
         return 'bt';
-    }*/
+    }
     /**
      * @param string $string  name
      *

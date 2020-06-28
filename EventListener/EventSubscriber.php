@@ -1,12 +1,10 @@
 <?php
-
-/*
- * @copyright   2016 Mautic Contributors. All rights reserved
- * @author      Mautic, Inc.
- *
- * @link        https://mautic.org
- *
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+/**
+ * @package     Mautic
+ * @copyright   2020 Enguerr. All rights reserved
+ * @author      Enguerr
+ * @link        https://www.enguer.com
+ * @license     GNU/AGPLv3 http://www.gnu.org/licenses/agpl.html
  */
 
 namespace MauticPlugin\MauticBeefreeBundle\EventListener;
@@ -78,6 +76,8 @@ class EventSubscriber extends CommonSubscriber
         $emailForm = $this->request->get('emailform');
         $emailName = $emailForm['name'];
         $content = $emailForm['customHtml'];
-        $this->beefreeVersionRepository->saveBeefreeVersion($emailName.' - '.date('d/m/Y H:i:s'),$content,$json,$emailEvent->getEmail()->getId());
+        if (!empty($json)) {
+            $this->beefreeVersionRepository->saveBeefreeVersion($emailName . ' - ' . date('d/m/Y H:i:s'), $content, $json, $emailEvent->getEmail()->getId());
+        }
     }
 }

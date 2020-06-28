@@ -33,8 +33,8 @@
     var endpoint = "https://auth.getbee.io/apiauth";
 
     var payload = {
-        client_id: "2efb5f4f-f7c6-4bd7-a7c1-0ea778839efd", // Enter your client id
-        client_secret: "6FdtxHwfVAQMPHz1roVHnDhM21z8rQguoWx49vvCq4OW5jaOtt24", // Enter your secret key
+        client_id: "<?php echo $apikey; ?>", // Enter your client id
+        client_secret: "<?php echo $apisecret; ?>", // Enter your secret key
         grant_type: "password" // Do not change
     };
     var specialLinks = [{
@@ -43,13 +43,25 @@
         link: 'http://[unsubscribe]/'
     }];
 
-    var save = function (filename, content) {
-        console.log('saving ',filename,mQuery('textarea.builder-html', window.parent.document));
+    var save = function (content) {
+        console.log('saving ',mQuery('textarea.builder-html', window.parent.document));
         mQuery('textarea.builder-html', window.parent.document).val(content);
     };
-    var saveAsTemplate = function (filename, content) {
-        console.log('saving template',filename,mQuery('textarea.template-builder-html', window.parent.document));
-        mQuery('textarea.template-builder-html', window.parent.document).val(content);
+    function checksum(s) {
+        var hash = 0, strlen = s.length, i, c;
+        if ( strlen === 0 ) {
+            return hash;
+        }
+        for ( i = 0; i < strlen; i++ ) {
+            c = s.charCodeAt( i );
+            hash = ((hash << 5) - hash) + c;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return hash;
+    };
+    var saveAsTemplate = function ( content) {
+        console.log('saving template',checksum(mQuery('textarea.template-builder-html', window.parent.document).val()),checksum(btoa(content)));
+        mQuery('textarea.template-builder-html', window.parent.document).val(btoa(content));
     };
 
     $.post(endpoint, payload)
@@ -66,7 +78,7 @@
                 autosave: 30, // [optional, default:false]
                 language: 'fr-FR', // [optional, default:'en-US']
                 trackChanges: false, // [optional, default: false]
-                //specialLinks: specialLinks, // [optional, default:[]]
+                specialLinks: specialLinks, // [optional, default:[]]
                 /*mergeTags: mergeTags, // [optional, default:[]]
                 mergeContents: mergeContents, // [optional, default:[]]*/
                 preventClose: true, // [optional, default:false]
@@ -76,22 +88,19 @@
                 //roleHash : "", // [optional, default: ""]
                 //rowDisplayConditions : {}, // [optional, default: {}]
                 onChange: function (jsonFile, response) {
-                    console.log('json', jsonFile);
-                    console.log('response', response);
-                    //save('newsletter.html', reponse.);
-                    saveAsTemplate('newsletter-template.json', jsonFile);
+                    saveAsTemplate(jsonFile);
                 },
                 onSave: function (jsonFile, htmlFile) {
-                    saveAsTemplate('newsletter-template.json', jsonFile);
-                    save('newsletter.html', htmlFile);
+                    saveAsTemplate(jsonFile);
+                    save(htmlFile);
                 },
                 onSaveAsTemplate: function (jsonFile) { // + thumbnail?
-                    saveAsTemplate('newsletter-template.json', jsonFile);
+                    //saveAsTemplate(jsonFile);
                 },
-                /*onAutoSave: function (jsonFile) { // + thumbnail?
+                onAutoSave: function (jsonFile) { // + thumbnail?
                     console.log(new Date().toISOString() + ' autosaving...');
-                    window.localStorage.setItem('newsletter.autosave', jsonFile);
-                },*/
+                    //saveAsTemplate(jsonFile);
+                },
                 /*onSend: function (htmlFile) {
                     //write your send test function here
                 },*/
@@ -106,95 +115,13 @@
                 bee = instance;
                 // You may now use this instance...
                 var template = <?php echo $contenttemplate; ?>; // Any valid template, as JSON object
+                //var templatetempjs = atob(mQuery('textarea.template-builder-html', window.parent.document).html());
+                //var templatetemp = <?php /*echo $activetemplate;*/ ?>;
+                //var templatetempjs = atob(mQuery('textarea.template-builder-html', window.parent.document).val());
 
+                //console.log('template temp',JSON.parse(templatetempjs));
                 bee.start(template);
             });
         });
 
-
-/*    // Set up BeeFree editor with the Newsletter plugin
-    var bodytext = '';
-    var m = (window.opener.mQuery('textarea.builder-html').val()).match(/<body[^>]*>([^<]*(?:(?!<\/?body)<[^<]*)*)<\/body\s*>/i);
-    if (m) {
-        bodytext = m[1];
-    }
-    //console.log(bodytext);
-    var editor = grapesjs.init({
-        height: '100%',
-        noticeOnUnload: 0,
-        storageManager: {type: null},
-        container: '#gjs',
-        components: bodytext,
-
-        assetManager: {
-            assets: <?php echo json_encode($images); ?>,
-            upload: '<?php echo $view['router']->generate('mautic_beefree_upload', [], true) ?>',
-            uploadName: 'files',
-            multiUpload: true,
-            // Text on upload input
-            uploadText: 'Drop files here or click to upload',
-            // Label for the add button
-            addBtnText: 'Add image',
-            // Default title for the asset manager modal
-            modalTitle: 'Select Image',
-        },
-
-        plugins: ['grapesjs-parser-postcss', 'gjs-preset-newsletter'],
-        pluginsOpts: {
-            'gjs-preset-newsletter': {
-                modalLabelImport: 'Paste all your code here below and click import',
-                modalLabelExport: 'Copy the code and use it wherever you want',
-                codeViewerTheme: 'material',
-                //defaultTemplate: templateImport,
-                importPlaceholder: '',
-                cellStyle: {
-                    'font-size': '12px',
-                    'font-weight': 300,
-                    'vertical-align': 'top',
-                    color: 'rgb(111, 119, 125)',
-                    margin: 0,
-                    padding: 0,
-                }
-            }
-        },
-    });
-    var pnm = editor.Panels;
-    pnm.removeButton("options", "gjs-open-import-template");
-    pnm.removeButton("options", "gjs-toggle-images");
-    pnm.addButton('options', [{
-        id: 'undo',
-        className: 'fa fa-undo',
-        attributes: {title: 'Undo'},
-        command: function () { editor.runCommand('core:undo') }
-    }, {
-        id: 'redo',
-        className: 'fa fa-repeat',
-        attributes: {title: 'Redo'},
-        command: function () { editor.runCommand('core:redo') }
-    }
-    ]);
-
-    editor.Panels.removeButton("options", "import");
-    pnm.addButton('options',
-        [{
-            id: 'save',
-            className: 'btn-alert-button',
-            label: 'Save and close',
-            command: function (editor1, sender) {
-                var newContent = ($('textarea#templateBuilder').val()).replace('||BODY||', editor.runCommand('gjs-get-inlined-html'));
-                console.log(newContent);
-                window.opener.mQuery('textarea.builder-html').val(newContent);
-                window.close();
-            },
-            attributes: {title: 'Save and close'}
-        }
-        ]);
-
-
-    let iFrame = mQuery("#gjs iframe.gjs-frame");
-    editor.on('rte:enable', (some, argument) => {
-        let elem = iFrame.contents().find(some.$el[0]);
-        elem.atwho('setIframe', iFrame[0]);
-        Mautic.initAtWho(elem, 'email:getBuilderTokens', false);
-    });*/
 </script>
