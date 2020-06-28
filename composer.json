@@ -6,7 +6,7 @@
   "keywords": [ "beefree", "mautic", "templating", "landing page", "email"],
   "autoload": {
     "psr-4": {
-      "MauticPlugin\\MauticBeefreeBundle" : "src/"
+      "MauticPlugin\\MauticBeefreeBundle" : ""
     }
   },
   "require": {
