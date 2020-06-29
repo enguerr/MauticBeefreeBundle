@@ -35,8 +35,10 @@ $isCodeMode = ($active == $codeMode);
     <div class="col-md-3 beefree-theme-list">
         <div class="panel panel-default ">
             <div class="panel-body text-center">
-                <h3><?php echo $view['translator']->trans('mautic.beefree.from-scratch'); ?></h3>
-                <div class="panel-body text-center" style="height: 250px">
+                <div style="height:64px;">
+                    <h3><?php echo $view['translator']->trans('mautic.beefree.from-scratch'); ?></h3>
+                </div>
+                <div class="panel-body text-center" style="height: 210px">
                     <i class="fa fa-plus fa-5x text-muted" aria-hidden="true" style="padding-top: 50px; color: #E4E4E4;"></i>
                 </div>
                 <a href="#" type="button" data-theme-beefree="new" class="select-theme-link btn btn-default btn-dnd btn-nospin text-success btn-builder btn-copy " onclick="Mautic.launchCustomBuilder('emailform', 'email',this);">
@@ -62,14 +64,16 @@ $isCodeMode = ($active == $codeMode);
             <div class="col-md-3 beefree-theme-list">
                 <div class="panel panel-default <?php echo $isSelected ? 'beefree-selected' : ''; ?>">
                     <div class="panel-body text-center">
-                        <h3><?php echo $themeInfo->getTitle(); ?></h3>
+                        <div style="height:64px;">
+                            <h3><?php echo $themeInfo->getTitle(); ?></h3>
+                        </div>
                         <?php if ($hasThumbnail) : ?>
                             <a href="#" data-toggle="modal" data-target="#theme-<?php echo $themeKey; ?>">
                                 <div style="background-image: url('data:image/gif;base64,<?php echo base64_encode($themeInfo->getPreview()); ?>');background-repeat:no-repeat;background-size:contain; background-position:center; width: 100%; height: 250px"></div>
                             </a>
                         <?php else : ?>
                             <div class="panel-body text-center" style="height: 250px">
-                                <i class="fa fa-file-image-o fa-5x text-muted" aria-hidden="true" style="padding-top: 75px; color: #E4E4E4;"></i>
+                                <i class="fa fa-file-image-o fa-5x text-muted" aria-hidden="true" style="padding-top: 50px; color: #E4E4E4;"></i>
                             </div>
                         <?php endif; ?>
                         <a href="#" type="button" data-theme-beefree="<?php echo $themeKey; ?>" class="select-theme-link btn btn-default btn-dnd btn-nospin text-success btn-builder btn-copy " onclick="Mautic.launchCustomBuilder('emailform', 'email',this);">
