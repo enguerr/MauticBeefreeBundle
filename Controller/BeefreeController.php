@@ -130,11 +130,21 @@ class BeefreeController extends CommonController
                 break;
         }
 
+        //get translator
+        $translator = $this->get('translator');
+        $locale = $translator->getLocale();
+        //transform to beefree format
+        switch ($locale){
+            case 'fr':
+                $locale = 'fr-FR';
+                break;
+        }
         $builderCode = $this->renderView('MauticBeefreeBundle:'.$templateDirectory.':builder.html.php', [
             'images'=>$this->get('mautic.beefree.js.uploader')->getImages(),
             'apikey' => $featureSettings['beefree_api_key'],
             'apisecret' => $featureSettings['beefree_api_secret'],
             'template' => $template,
+            'locale' => $locale,
             'contenttemplate'  => ($contenttemplate)?$contenttemplate->getJson():'JSON.parse(base64decode(mQuery(\'textarea.template-builder-html\', window.parent.document).val()))',
         ]);
         $templateForBuilder = str_replace('</body>', $builderCode.$hiddenTemplate.'</body>', $templateForBuilder);

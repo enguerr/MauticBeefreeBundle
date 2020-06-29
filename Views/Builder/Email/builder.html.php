@@ -86,7 +86,7 @@
                 uid: 'eng',
                 container: 'bee-plugin-container',
                 autosave: 30, // [optional, default:false]
-                language: 'en-US', // [optional, default:'en-US']
+                language: '<?php echo $locale; ?>', // [optional, default:'en-US']
                 trackChanges: false, // [optional, default: false]
                 specialLinks: specialLinks, // [optional, default:[]]
                 /*mergeTags: mergeTags, // [optional, default:[]]
