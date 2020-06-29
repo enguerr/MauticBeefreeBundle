@@ -23,7 +23,7 @@ $isCodeMode = ($active == $codeMode);
     .bf-item:after {
         content: '';
         display: block;
-        background-color: #f8f8f8;
+        background-color: #fcfcfc;
         opacity: 0.9;
         width: 100%;
         height: 100%;
@@ -131,7 +131,7 @@ $isCodeMode = ($active == $codeMode);
         text-indent: -9999px;
     }
     .fb-icon {
-        color: #999;
+        color: #ccc;
         position: absolute;
         top: 100px;
         left: calc( 50% - 40px );
