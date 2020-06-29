@@ -135,7 +135,7 @@ class BeefreeController extends CommonController
             'apikey' => $featureSettings['beefree_api_key'],
             'apisecret' => $featureSettings['beefree_api_secret'],
             'template' => $template,
-            'contenttemplate'  => ($contenttemplate)?$contenttemplate->getJson():'JSON.parse(atob(mQuery(\'textarea.template-builder-html\', window.parent.document).val()))',
+            'contenttemplate'  => ($contenttemplate)?$contenttemplate->getJson():'JSON.parse(base64decode(mQuery(\'textarea.template-builder-html\', window.parent.document).val()))',
         ]);
         $templateForBuilder = str_replace('</body>', $builderCode.$hiddenTemplate.'</body>', $templateForBuilder);
 

@@ -29,7 +29,17 @@
 <script src="https://app-rsrc.getbee.io/plugin/BeePlugin.js" type="text/javascript"></script>
 <div id="bee-plugin-container"></div>
 <script type="text/javascript">
-
+    function base64encode(str) {
+        return window.btoa(unescape(encodeURIComponent( str )));
+    }
+    function base64decode(str) {
+        try {
+            return decodeURIComponent(escape(window.atob(str)));
+        } catch (err){
+            console.log('legacy base64 format detected');
+            return window.atob(str);
+        }
+    }
     var endpoint = "https://auth.getbee.io/apiauth";
 
     var payload = {
@@ -60,8 +70,8 @@
         return hash;
     };
     var saveAsTemplate = function ( content) {
-        console.log('saving template',checksum(mQuery('textarea.template-builder-html', window.parent.document).val()),checksum(btoa(content)));
-        mQuery('textarea.template-builder-html', window.parent.document).val(btoa(content));
+        //console.log('saving template',checksum(mQuery('textarea.template-builder-html', window.parent.document).val()),checksum(btoa(content)));
+        mQuery('textarea.template-builder-html', window.parent.document).val(base64encode(content));
     };
 
     $.post(endpoint, payload)
