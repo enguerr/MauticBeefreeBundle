@@ -14,8 +14,7 @@ $isCodeMode = ($active == $codeMode);
 <style>
     .bf-item {
         position: relative;
-        //float: left;
-        width: 250px;
+        width: 100%;
         height: 300px;
         background-color: #fff;
         overflow: hidden;

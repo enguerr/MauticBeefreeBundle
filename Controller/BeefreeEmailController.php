@@ -266,7 +266,7 @@ class BeefreeEmailController extends BaseController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction($entity = null)
+    public function newAction($entity = null,$version=null)
     {
         $model = $this->getModel('email');
 
@@ -400,7 +400,11 @@ class BeefreeEmailController extends BaseController
         );
         $bfrepo = $this->getDoctrine()->getRepository(BeefreeTheme::class);
         $bvrepo = $this->getDoctrine()->getRepository(BeefreeVersion::class);
-        $lastversion = $bvrepo->getLastVersion($entity->getId());
+        if ($version){
+            $lastversion = $version;
+        }else{
+            $lastversion = $bvrepo->getLastVersion($entity->getId());
+        }
         $postversion = $this->request->request->get('beefree-template');
 
         return $this->delegateView(
@@ -430,5 +434,41 @@ class BeefreeEmailController extends BaseController
                 ],
             ]
         );
+    }
+    /**
+     * Clone an entity.
+     *
+     * @param $objectId
+     *
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function cloneAction($objectId)
+    {
+        $model = $this->getModel('email');
+        /** @var Email $entity */
+        $entity = $model->getEntity($objectId);
+
+        if ($entity != null) {
+            if (!$this->get('mautic.security')->isGranted('email:emails:create')
+                || !$this->get('mautic.security')->hasEntityAccess(
+                    'email:emails:viewown',
+                    'email:emails:viewother',
+                    $entity->getCreatedBy()
+                )
+            ) {
+                return $this->accessDenied();
+            }
+
+            $entity      = clone $entity;
+            $session     = $this->get('session');
+            $contentName = 'mautic.emailbuilder.'.$entity->getSessionId().'.content';
+
+            $session->set($contentName, $entity->getCustomHtml());
+
+            //getversion if exists
+            $bvrepo = $this->getDoctrine()->getRepository(BeefreeVersion::class);
+            $lastversion = $bvrepo->getLastVersion($objectId);
+        }
+        return $this->newAction($entity,$lastversion);
     }
 }
