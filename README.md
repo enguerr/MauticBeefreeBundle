@@ -6,7 +6,7 @@ This is an experimental BeeFree integration for Mautic
 - 06/28/2020 alpha0 release
 - 06/30/2020 alpha1 release
 
-# Issues
+### Issues
 - UTF-8 chars with js atob (resoved with unescape/URIDEcode workaround) - resolved
 - Language support for beefree plugin - resolved
 
