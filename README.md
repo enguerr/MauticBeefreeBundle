@@ -31,6 +31,7 @@ You can also select one of the template from Template tab.
     - Edit email
     - Save versions
     - Use template library
+    - Email clone support
 ### Todo
     - Save as template
     - Import template
