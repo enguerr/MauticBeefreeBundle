@@ -1,5 +1,5 @@
 # BeeFree integration for Mautic
-![Beefree Mautic Plugin](./Beefree-dash.JPG "Mautic beefree.io plugin integration")
+![Beefree Mautic Plugin](./mautic-beefree.gif "Mautic beefree.io plugin integration")
 ![Beefree Mautic Plugin](./Beefree-editor.JPG "Mautic beefree.io plugin integration")
 
 This is an experimental BeeFree integration for Mautic
