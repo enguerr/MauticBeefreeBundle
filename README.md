@@ -4,7 +4,11 @@
 
 This is an experimental BeeFree integration for Mautic
 - 06/28/2020 alpha0 release
+- 06/30/2020 alpha1 release
 
+# Issues
+- UTF-8 chars with js atob (resoved with unescape/URIDEcode workaround) - resolved
+- Language support for beefree plugin - resolved
 
 ### Installation from command line
 1. cd MAUTIC_DIR/plugins && git clone https://github.com/enguerr/MauticBeefreeBundle (or unzip the release)
