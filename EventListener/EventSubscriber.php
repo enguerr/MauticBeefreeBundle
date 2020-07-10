@@ -14,6 +14,8 @@ use Mautic\CoreBundle\Event\CustomAssetsEvent;
 use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\EmailBundle\EmailEvents;
 use Mautic\EmailBundle\Event\EmailEvent;
+use Mautic\PageBundle\PageEvents;
+use Mautic\PageBundle\Event\PageEvent;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersionRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -45,7 +47,8 @@ class EventSubscriber extends CommonSubscriber
         return [
             KernelEvents::REQUEST => ['onRequest',10],
             CoreEvents::VIEW_INJECT_CUSTOM_ASSETS => ['injectAssets', -10],
-            EmailEvents::EMAIL_POST_SAVE => ['saveVersion',-20],
+            EmailEvents::EMAIL_POST_SAVE => ['saveEmailVersion',-20],
+            PageEvents::PAGE_POST_SAVE => ['savePageVersion',-20],
         ];
     }
 
@@ -70,14 +73,27 @@ class EventSubscriber extends CommonSubscriber
     /**
      * @param CustomAssetsEvent $assetsEvent
      */
-    public function saveVersion(EmailEvent $emailEvent)
+    public function saveEmailVersion(EmailEvent $emailEvent)
     {
         $json = $this->request->get('beefree-template');
         $emailForm = $this->request->get('emailform');
         $emailName = $emailForm['name'];
         $content = $emailForm['customHtml'];
         if (!empty($json)) {
-            $this->beefreeVersionRepository->saveBeefreeVersion($emailName . ' - ' . date('d/m/Y H:i:s'), $content, $json, $emailEvent->getEmail()->getId());
+            $this->beefreeVersionRepository->saveBeefreeVersion($emailName . ' - ' . date('d/m/Y H:i:s'), $content, $json, $emailEvent->getEmail()->getId(),'email');
+        }
+    }
+    /**
+     * @param CustomAssetsEvent $assetsEvent
+     */
+    public function savePageVersion(PageEvent $pageEvent)
+    {
+        $json = $this->request->get('beefree-template');
+        $pageForm = $this->request->get('page');
+        $pageName = $pageForm['title'];
+        $content = $pageForm['customHtml'];
+        if (!empty($json)) {
+            $this->beefreeVersionRepository->saveBeefreeVersion($pageName . ' - ' . date('d/m/Y H:i:s'), $content, $json, $pageEvent->getPage()->getId(),'page');
         }
     }
 }

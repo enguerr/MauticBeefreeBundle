@@ -29,6 +29,11 @@ return [
                 'arguments' => 'mautic.factory',
                 'alias' => 'emailform'
             ],
+            'mautic.beefree.form.type.page' => [
+                'class' => \MauticPlugin\MauticBeefreeBundle\Form\Type\PageType::class,
+                'arguments' => 'mautic.factory',
+                'alias' => 'page'
+            ],
             'mautic.form.type.beefree' => array(
                 'class'     => 'MauticPlugin\MauticBeefreeBundle\Form\Type\ConfigType',
                 'alias'     => 'beefree',
@@ -49,12 +54,6 @@ return [
                 ],
             ],
         ],
-/*        'models'       => [
-            'mautic.email.model.beefreeTheme' => [
-                'class'     =>   \MauticPlugin\MauticBeefreeBundle\Model\BeefreeThemeModel::class,
-                'arguments' => []
-            ]
-        ],*/
         'integrations' => [
             'mautic.integration.beefree' => [
                 'class' => \MauticPlugin\MauticBeefreeBundle\Integration\BeefreeIntegration::class,
@@ -92,6 +91,10 @@ return [
             'mautic_email_action' => [
                 'path'       => '/emails/{objectAction}/{objectId}',
                 'controller' => 'MauticBeefreeBundle:BeefreeEmail:execute',
+            ],
+            'mautic_page_action' => [
+                'path'       => '/pages/{objectAction}/{objectId}',
+                'controller' => 'MauticBeefreeBundle:BeefreePage:execute',
             ],
         ],
     ],

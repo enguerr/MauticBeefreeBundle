@@ -23,7 +23,7 @@ class BeefreeVersionRepository extends CommonRepository
      * @param $subject
      * @param $body
      */
-    public function saveBeefreeVersion($name, $content,$json,$email_id)
+    public function saveBeefreeVersion($name, $content,$json,$object_id,$type='email')
     {
         $db = $this->getEntityManager()->getConnection();
 
@@ -32,8 +32,9 @@ class BeefreeVersionRepository extends CommonRepository
                 MAUTIC_TABLE_PREFIX.'beefree_version',
                 [
                     'name'         => $name,
-                    'email_id'      => $email_id,
+                    'object_id'      => $object_id,
                     'json'      => $json,
+                    'type'      => $type,
                     'content'      => $content,
                 ]
             );
@@ -41,24 +42,28 @@ class BeefreeVersionRepository extends CommonRepository
             return true;
         } catch (\Exception $e) {
             error_log($e);
-die($e->getMessage());
+            die($e->getMessage());
             return false;
         }
     }
 
     /**
-     * @param string $string  email_id
+     * @param string $string  object_id
      *
      * @return BeefreeVersion
      */
-    public function getLastVersion($email_id)
+    public function getLastVersion($object_id,$type='email')
     {
 
         $q = $this->createQueryBuilder($this->getTableAlias());
-        $q->where(
-            $q->expr()->eq($this->getTableAlias().'.email_id', ':email_id')
+        $q->andWhere(
+            $q->expr()->eq($this->getTableAlias().'.object_id', ':object_id')
         )
-            ->setParameter('email_id', $email_id)
+            ->andWhere(
+                $q->expr()->eq($this->getTableAlias().'.type', ':type')
+            )
+            ->setParameter('object_id', $object_id)
+            ->setParameter('type', $type)
             ->orderBy($this->getTableAlias().'.id','DESC')
             ->setFirstResult(0)
             ->setMaxResults(1);
@@ -101,12 +106,7 @@ die($e->getMessage());
 
         return $result;
     }
-    /**
-     * @return array
-     */
-    public function getInstalledThemes(){
-        return $this->findAll();
-    }
+
     /**
      * @return array
      */

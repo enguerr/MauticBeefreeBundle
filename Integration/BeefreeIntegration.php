@@ -66,6 +66,19 @@ class BeefreeIntegration extends AbstractIntegration
     {
         if ($formArea == 'features') {
             $builder->add(
+                'beefree_user_name',
+                TextType::class,
+                [
+                    'label'      => 'mautic.beefree.config.username',
+                    'label_attr' => ['class' => 'control-label'],
+                    'attr'       => [
+                        'class' => 'form-control',
+                        'tooltip' => 'mautic.beefree.config.api.key.tooltip',
+                    ],
+                    'empty_data' => ''
+                ]
+            );
+            $builder->add(
                 'beefree_api_key',
                 TextType::class,
                 [
@@ -92,6 +105,50 @@ class BeefreeIntegration extends AbstractIntegration
                     'empty_data' => ''
                 ]
             );
+            $builder->add(
+                'beefree_api_key_page',
+                TextType::class,
+                [
+                    'label'      => 'mautic.beefree.config.page.api.key',
+                    'label_attr' => ['class' => 'control-label'],
+                    'attr'       => [
+                        'class' => 'form-control',
+                        'tooltip' => 'mautic.beefree.config.page.api.key.tooltip',
+                    ],
+                    'empty_data' => ''
+                ]
+            );
+            $builder->add(
+                'beefree_api_secret_page',
+                TextType::class,
+                [
+                    'label'      => 'mautic.beefree.config.page.api.secret',
+                    'label_attr' => ['class' => 'control-label'],
+                    'attr'       => [
+                        'class' => 'form-control',
+                        'tooltip' => 'mautic.beefree.config.page.api.secret.tooltip',
+                    ],
+                    'empty_data' => ''
+                ]
+            );
+            $builder->add(
+                'beefree_image_get',
+                YesNoButtonGroupType::class,
+                [
+                    'label'      => 'mautic.beefree.config.image.get',
+                    'label_attr' => ['class' => 'control-label'],
+                    'attr'       => [
+                        'class' => 'form-control',
+                        'tooltip' => 'mautic.beefree.config.image.get.tooltip',
+                    ],
+                    'data' => isset($data['beefree_image_get']) ?
+                        (bool) $data['beefree_image_get']
+                        : false,
+                    'empty_data' => false,
+                    'required' => false,
+                ]
+            );
+
 
             $builder->add(
                 'beefree_image_get',

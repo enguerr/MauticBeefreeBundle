@@ -83,7 +83,7 @@
 
             // Define a simple BEE Plugin configuration...
             var config = {
-                uid: 'eng',
+                uid: '<?php echo $username; ?>',
                 container: 'bee-plugin-container',
                 autosave: 30, // [optional, default:false]
                 language: '<?php echo $locale; ?>', // [optional, default:'en-US']

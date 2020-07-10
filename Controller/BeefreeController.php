@@ -83,16 +83,19 @@ class BeefreeController extends CommonController
         // Replace short codes to emoji
         $content = EmojiHelper::toEmoji($content, 'short');
 
-        $logicalName = $this->factory->getHelper('theme')->checkForTwigTemplate(':'.$template.':'.$objectType.'.html.php');
-        $templateWithBody =  $this->renderView(
+        //
+        //if ($template=="undefined") $template="neopolitan";
+        //$logicalName = $this->factory->getHelper('theme')->checkForTwigTemplate(':' . $template . ':' . $objectType . '.html.php');
+        $logicalName = $this->factory->getHelper('theme')->checkForTwigTemplate(':blank:' . $objectType . '.html.php');
+        $templateWithBody = $this->renderView(
             $logicalName,
             [
-                'isNew'     => $isNew,
-                'slots'     => $slots,
-                'content'   => $content,
+                'isNew' => $isNew,
+                'slots' => $slots,
+                'content' => $content,
                 $objectType => $entity,
-                'template'  => $template,
-                'basePath'  => $this->request->getBasePath(),
+                'template' => 'blank',
+                'basePath' => $this->request->getBasePath(),
             ]
         );
 
@@ -141,9 +144,10 @@ class BeefreeController extends CommonController
         }
         $builderCode = $this->renderView('MauticBeefreeBundle:'.$templateDirectory.':builder.html.php', [
             'images'=>$this->get('mautic.beefree.js.uploader')->getImages(),
-            'apikey' => $featureSettings['beefree_api_key'],
-            'apisecret' => $featureSettings['beefree_api_secret'],
+            'apikey' => ($objectType == 'email') ? $featureSettings['beefree_api_key']:$featureSettings['beefree_api_key_page'],
+            'apisecret' => ($objectType == 'email') ?$featureSettings['beefree_api_secret']:$featureSettings['beefree_api_secret_page'],
             'template' => $template,
+            'username' => $featureSettings['beefree_user_name'],
             'locale' => $locale,
             'contenttemplate'  => ($contenttemplate)?$contenttemplate->getJson():'JSON.parse(base64decode(mQuery(\'textarea.template-builder-html\', window.parent.document).val()))',
         ]);

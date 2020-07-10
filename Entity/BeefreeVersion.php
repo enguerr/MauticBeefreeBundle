@@ -36,12 +36,16 @@ class BeefreeVersion
     /**
      * @var int
      */
-    private $email_id;
+    private $object_id;
     /**
      * @var string
      */
     private $preview;
 
+    /**
+     * @var string
+     */
+    private $type;
     /**
      * @var string
      */
@@ -72,6 +76,10 @@ class BeefreeVersion
             ->columnName('name')
             ->build();
 
+        $builder->createField('type', 'string')
+            ->columnName('type')
+            ->build();
+
         $builder->createField('preview', 'blob')
             ->columnName('preview')
             ->build();
@@ -85,8 +93,8 @@ class BeefreeVersion
             ->build();
 
         //fake ManyToOne
-        $builder->createField('email_id', 'integer')
-            ->columnName('email_id')
+        $builder->createField('object_id', 'integer')
+            ->columnName('object_id')
             ->build();
     }
 
@@ -123,6 +131,21 @@ class BeefreeVersion
     public function setName($name)
     {
         $this->name = $name;
+    }
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
     /**
