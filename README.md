@@ -5,6 +5,7 @@
 This is an experimental BeeFree integration for Mautic
 - 06/28/2020 alpha0 release
 - 06/30/2020 alpha1 release
+- 07/10/2020 beta0 release
 
 ### Issues
 - UTF-8 chars with js atob (resoved with unescape/URIDEcode workaround) - resolved
@@ -32,11 +33,9 @@ You can also select one of the template from Template tab.
     - Save versions
     - Use template library
     - Email clone support
+    - Integration with landing pages 
 ### Todo
     - Save as template
-    - Import template
-    - Restore version
-    - Integration with landing pages 
     - Automatically download images from Beefree servers and replace links (template and html)
     - Integrate premium features
     - Integrate external storage
