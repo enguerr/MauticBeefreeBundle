@@ -34,11 +34,13 @@ You can also select one of the template from Template tab.
     - Use template library
     - Email clone support
     - Integration with landing pages 
+    - beefree user added to plugin configuration in order to limit files access through the media library
 ### Todo
     - Save as template
     - Automatically download images from Beefree servers and replace links (template and html)
     - Integrate premium features
     - Integrate external storage
+    - Add mautic tokens support (form/dynamic content/unsubscribe_url etc ...)
     
     
 ### Where to find Templates
