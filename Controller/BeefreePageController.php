@@ -130,7 +130,7 @@ class BeefreePageController extends BaseController
 
         return $this->delegateView([
             'viewParameters' => [
-                'form'          => $this->setFormTheme($form, 'MauticPageBundle:Page:form.html.php', 'MauticPageBundle:FormTheme\Page'),
+                'form'          => $this->setFormTheme($form, 'MauticBeefreeBundle:Page:form.html.php', 'MauticBeefreeBundle:FormTheme\Page'),
                 'isVariant'     => $entity->isVariant(true),
                 'tokens'        => $model->getBuilderComponents($entity, 'tokens'),
                 'activePage'    => $entity,
@@ -144,7 +144,7 @@ class BeefreePageController extends BaseController
                 'sectionForm'   => $sectionForm->createView(),
                 'permissions'   => $permissions,
             ],
-            'contentTemplate' => 'MauticPageBundle:Page:form.html.php',
+            'contentTemplate' => 'MauticBeefreeBundle:Page:form.html.php',
             'passthroughVars' => [
                 'activeLink'    => '#mautic_page_index',
                 'mauticContent' => 'page',
