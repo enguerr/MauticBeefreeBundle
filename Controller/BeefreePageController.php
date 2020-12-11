@@ -30,7 +30,7 @@ class BeefreePageController extends BaseController
      *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction($entity = null)
+    public function newAction($entity = null,$version=null)
     {
         /** @var \Mautic\PageBundle\Model\PageModel $model */
         $model = $this->getModel('page.page');
@@ -127,7 +127,11 @@ class BeefreePageController extends BaseController
             ],
             'RETURN_ARRAY'
         );
-
+        if ($version){
+            $lastversion = $version;
+        }else{
+            $lastversion = $bvrepo->getLastVersion($entity->getId());
+        }
         return $this->delegateView([
             'viewParameters' => [
                 'form'          => $this->setFormTheme($form, 'MauticBeefreeBundle:Page:form.html.php', 'MauticBeefreeBundle:FormTheme\Page'),
@@ -368,6 +372,6 @@ class BeefreePageController extends BaseController
             $lastversion = $bvrepo->getLastVersion($objectId,'page');
         }
 
-        return $this->newAction($entity);
+        return $this->newAction($entity,$lastversion);
     }
 }
