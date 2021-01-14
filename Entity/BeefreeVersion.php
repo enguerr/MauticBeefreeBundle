@@ -80,11 +80,11 @@ class BeefreeVersion
             ->columnName('type')
             ->build();
 
-        $builder->createField('preview', 'blob')
+        $builder->createField('preview', 'longblob')
             ->columnName('preview')
             ->build();
 
-        $builder->createField('content', 'text')
+        $builder->createField('content', 'longblob')
             ->columnName('content')
             ->build();
 

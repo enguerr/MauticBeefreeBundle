@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `mautic_beefree_theme` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `preview` longblob NOT NULL,
-  `content` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `content` longblob COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Déchargement des données de la table `mautic_beefree_theme`
