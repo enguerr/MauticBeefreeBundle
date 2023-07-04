@@ -1,5 +1,5 @@
 {
-  "name": "enguerr/MauticBeefreeBundle",
+  "name": "enguerr/mauticbeefreeBundle",
   "type": "mautic-plugin",
   "license": "LGPL-3.0-or-later",
   "description": "Beefree integration for Mautic",
