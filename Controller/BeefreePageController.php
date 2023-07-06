@@ -12,6 +12,7 @@ namespace MauticPlugin\MauticBeefreeBundle\Controller;
 use Mautic\CoreBundle\Controller\BuilderControllerTrait;
 use Mautic\CoreBundle\Controller\FormController;
 use Mautic\CoreBundle\Controller\FormErrorMessagesTrait;
+use Mautic\CoreBundle\Form\Type\BuilderSectionType;
 use Mautic\CoreBundle\Helper\InputHelper;
 use Mautic\PageBundle\Controller\PageController as BaseController;
 use Mautic\PageBundle\Entity\Page;
@@ -108,7 +109,7 @@ class BeefreePageController extends BaseController
 
         $slotTypes   = $model->getBuilderComponents($entity, 'slotTypes');
         $sections    = $model->getBuilderComponents($entity, 'sections');
-        $sectionForm = $this->get('form.factory')->create('builder_section');
+        $sectionForm = $this->get('form.factory')->create(BuilderSectionType::class);
 
         $bfrepo = $this->getDoctrine()->getRepository(BeefreeTheme::class);
         $bvrepo = $this->getDoctrine()->getRepository(BeefreeVersion::class);
@@ -283,7 +284,7 @@ class BeefreePageController extends BaseController
 
         $slotTypes   = $model->getBuilderComponents($entity, 'slotTypes');
         $sections    = $model->getBuilderComponents($entity, 'sections');
-        $sectionForm = $this->get('form.factory')->create('builder_section');
+        $sectionForm = $this->get('form.factory')->create(BuilderSectionType::class);
 
         $bfrepo = $this->getDoctrine()->getRepository(BeefreeTheme::class);
         $bvrepo = $this->getDoctrine()->getRepository(BeefreeVersion::class);

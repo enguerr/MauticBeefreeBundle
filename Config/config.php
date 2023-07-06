@@ -15,7 +15,7 @@ return [
     'version'     => '1.0.0',
     'services' => [
         'events'  => [
-            'mautic.beefree.js.event.subscriber'=>[
+            'mautic.beefree.js.event.subscriber'=> [
                 'class'=> \MauticPlugin\MauticBeefreeBundle\EventListener\EventSubscriber::class,
                 'arguments' => [
                     'mautic.helper.integration',
@@ -24,16 +24,6 @@ return [
             ],
         ],
         'forms'   => [
-            'mautic.beefree.form.type.email' => [
-                'class' => \MauticPlugin\MauticBeefreeBundle\Form\Type\EmailType::class,
-                'arguments' => 'mautic.factory',
-                'alias' => 'emailform'
-            ],
-            'mautic.beefree.form.type.page' => [
-                'class' => \MauticPlugin\MauticBeefreeBundle\Form\Type\PageType::class,
-                'arguments' => 'mautic.factory',
-                'alias' => 'page'
-            ],
             'mautic.form.type.beefree' => array(
                 'class'     => 'MauticPlugin\MauticBeefreeBundle\Form\Type\ConfigType',
                 'alias'     => 'beefree',
@@ -53,10 +43,49 @@ return [
                     'mautic.helper.paths',
                 ],
             ],
+            // Form extensions
+            'mautic.form.extension.beefree.email_type' => [
+                'class'        => \MauticPlugin\MauticBeefreeBundle\Form\Extension\EmailTypeExtension::class,
+                'arguments'    => [
+                    'event_dispatcher',
+                ],
+                'tag'          => 'form.type_extension',
+                'tagArguments' => [
+                    'extended_type' => \Mautic\EmailBundle\Form\Type\EmailType::class,
+                ],
+            ],
+            'mautic.form.extension.beefree.page_type' => [
+                'class'        => \MauticPlugin\MauticBeefreeBundle\Form\Extension\PageTypeExtension::class,
+                'arguments'    => [
+                    'event_dispatcher',
+                ],
+                'tag'          => 'form.type_extension',
+                'tagArguments' => [
+                    'extended_type' => \Mautic\PageBundle\Form\Type\PageType::class,
+                ],
+            ],
         ],
         'integrations' => [
             'mautic.integration.beefree' => [
                 'class' => \MauticPlugin\MauticBeefreeBundle\Integration\BeefreeIntegration::class,
+                'arguments' => [
+                    'event_dispatcher',
+                    'mautic.helper.cache_storage',
+                    'doctrine.orm.entity_manager',
+                    'session',
+                    'request_stack',
+                    'router',
+                    'translator',
+                    'logger',
+                    'mautic.helper.encryption',
+                    'mautic.lead.model.lead',
+                    'mautic.lead.model.company',
+                    'mautic.helper.paths',
+                    'mautic.core.model.notification',
+                    'mautic.lead.model.field',
+                    'mautic.plugin.model.integration_entity',
+                    'mautic.lead.model.dnc',
+                ],
             ],
         ],
         'repositories' => [

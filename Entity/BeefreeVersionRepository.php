@@ -25,26 +25,20 @@ class BeefreeVersionRepository extends CommonRepository
      */
     public function saveBeefreeVersion($name, $content,$json,$object_id,$type='email')
     {
-        $db = $this->getEntityManager()->getConnection();
+        $version = new BeefreeVersion();
+        $version->setName($name);
+        $version->setEmail($content);
+        $version->setJson($json);
+        $version->setType($type);
+        $version->setObjectId($object_id);
 
-        try {
-            $db->insert(
-                MAUTIC_TABLE_PREFIX.'beefree_version',
-                [
-                    'name'         => $name,
-                    'object_id'      => $object_id,
-                    'json'      => $json,
-                    'type'      => $type,
-                    'content'      => $content,
-                ]
-            );
+        $this
+            ->getEntityManager()
+            ->persist($version);
 
-            return true;
-        } catch (\Exception $e) {
-            error_log($e);
-            die($e->getMessage());
-            return false;
-        }
+        $this
+            ->getEntityManager()
+            ->flush();
     }
 
     /**

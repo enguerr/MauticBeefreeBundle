@@ -18,9 +18,6 @@ use Mautic\EmailBundle\Entity\Email;
 use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository;
 
-/**
- * @ORM\Entity(repositoryClass="MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersionRepository")
- */
 class BeefreeVersion
 {
     /**
@@ -40,7 +37,7 @@ class BeefreeVersion
     /**
      * @var string
      */
-    private $preview;
+    private $preview = null;
 
     /**
      * @var string
@@ -80,11 +77,12 @@ class BeefreeVersion
             ->columnName('type')
             ->build();
 
-        $builder->createField('preview', 'longblob')
+        $builder->createField('preview', 'blob')
             ->columnName('preview')
+            ->nullable()
             ->build();
 
-        $builder->createField('content', 'longblob')
+        $builder->createField('content', 'blob')
             ->columnName('content')
             ->build();
 
@@ -153,7 +151,7 @@ class BeefreeVersion
      */
     public function getPreview()
     {
-        return stream_get_contents($this->preview);
+        return null === $this->preview ? null : stream_get_contents($this->preview);
     }
 
     /**
@@ -201,5 +199,15 @@ class BeefreeVersion
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getObjectId(): int
+    {
+        return $this->object_id;
+    }
+
+    public function setObjectId(int $object_id): void
+    {
+        $this->object_id = $object_id;
     }
 }

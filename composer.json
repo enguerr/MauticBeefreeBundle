@@ -1,18 +1,23 @@
 {
-  "name": "enguerr/mauticbeefreebundle",
+  "name": "mariusz-andrzejewski-droptica/mauticbeefreebundle",
   "type": "mautic-plugin",
   "license": "LGPL-3.0-or-later",
   "description": "Beefree integration for Mautic",
-  "keywords": [ "beefree", "mautic", "templating", "landing page", "email"],
-  "autoload": {
-    "psr-4": {
-      "MauticPlugin\\MauticBeefreeBundle" : ""
-    }
+  "keywords": [
+    "beefree",
+    "mautic",
+    "plugin",
+    "integration",
+    "templating",
+    "landing page",
+    "email"
+  ],
+  "extra": {
+    "install-directory-name": "MauticBeefreeBundle"
   },
+  "minimum-stability": "dev",
   "require": {
-    "mautic/composer-plugin": "^1.0"
-  },
-  "config": {
-    "preferred-install": "dist"
+    "php": ">=7.4.0 <8.1",
+    "mautic/core-lib": "^4.0"
   }
 }
