@@ -118,6 +118,7 @@ class BeefreeController extends CommonController
         $bfrepo = $this->getDoctrine()->getRepository(BeefreeTheme::class);
         $bvrepo = $this->getDoctrine()->getRepository(BeefreeVersion::class);
         $activetemplate = $bfrepo->getNewTemplate();
+
         switch ($template){
             case "new":
                 $contenttemplate = $bvrepo->getNewVersion();

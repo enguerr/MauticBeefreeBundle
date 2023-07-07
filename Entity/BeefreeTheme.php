@@ -18,9 +18,6 @@ use Mautic\EmailBundle\Entity\Email;
 use Mautic\LeadBundle\Entity\Lead;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository;
 
-/**
- * @ORM\Entity(repositoryClass="MauticPlugin\MauticBeefreeBundle\Entity\BeefreeThemeRepository")
- */
 class BeefreeTheme
 {
     /**
@@ -76,11 +73,11 @@ class BeefreeTheme
             ->columnName('title')
             ->build();
 
-        $builder->createField('preview', 'longblob')
+        $builder->createField('preview', 'blob')
             ->columnName('preview')
             ->build();
 
-        $builder->createField('content', 'longblob')
+        $builder->createField('content', 'blob')
             ->columnName('content')
             ->build();
 

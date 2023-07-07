@@ -11,19 +11,17 @@ namespace MauticPlugin\MauticBeefreeBundle\EventListener;
 
 use Mautic\CoreBundle\CoreEvents;
 use Mautic\CoreBundle\Event\CustomAssetsEvent;
-use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\EmailBundle\EmailEvents;
 use Mautic\EmailBundle\Event\EmailEvent;
 use Mautic\PageBundle\PageEvents;
 use Mautic\PageBundle\Event\PageEvent;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersionRepository;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Routing\RouterInterface;
 
-class EventSubscriber extends CommonSubscriber
+class EventSubscriber implements EventSubscriberInterface
 {
     /**
      * @var IntegrationHelper

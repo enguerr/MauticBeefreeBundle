@@ -10,12 +10,9 @@
 namespace MauticPlugin\MauticBeefreeBundle\Integration;
 
 use Mautic\PluginBundle\Integration\AbstractIntegration;
-use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
-use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Mautic\CoreBundle\Form\Type\YesNoButtonGroupType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 
 class BeefreeIntegration extends AbstractIntegration
@@ -25,12 +22,12 @@ class BeefreeIntegration extends AbstractIntegration
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'Beefree';
     }
 
-    public function getIcon()
+    public function getIcon(): string
     {
         return 'plugins/MauticBeefreeBundle/Assets/img/icon.png';
     }

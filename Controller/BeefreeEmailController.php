@@ -9,21 +9,13 @@
 
 namespace MauticPlugin\MauticBeefreeBundle\Controller;
 
-use Mautic\CoreBundle\Controller\BuilderControllerTrait;
-use Mautic\CoreBundle\Controller\FormController;
-use Mautic\CoreBundle\Controller\FormErrorMessagesTrait;
-use Mautic\CoreBundle\Helper\EmojiHelper;
+use Mautic\CoreBundle\Form\Type\BuilderSectionType;
 use Mautic\CoreBundle\Helper\InputHelper;
 use Mautic\EmailBundle\Controller\EmailController as BaseController;
 use Mautic\EmailBundle\Entity\Email;
-use Mautic\EmailBundle\Form\Type\ExampleSendType;
-use Mautic\LeadBundle\Controller\EntityContactsTrait;
-use Mautic\LeadBundle\Model\ListModel;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeTheme;
 use MauticPlugin\MauticBeefreeBundle\Entity\BeefreeVersion;
-use MauticPlugin\MauticCitrixBundle\Helper\CitrixHelper;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -201,7 +193,7 @@ class BeefreeEmailController extends BaseController
 
         $slotTypes   = $model->getBuilderComponents($entity, 'slotTypes');
         $sections    = $model->getBuilderComponents($entity, 'sections');
-        $sectionForm = $this->get('form.factory')->create('builder_section');
+        $sectionForm = $this->get('form.factory')->create(BuilderSectionType::class);
         $routeParams = [
             'objectAction' => 'edit',
             'objectId'     => $entity->getId(),
@@ -381,7 +373,7 @@ class BeefreeEmailController extends BaseController
 
         $slotTypes   = $model->getBuilderComponents($entity, 'slotTypes');
         $sections    = $model->getBuilderComponents($entity, 'sections');
-        $sectionForm = $this->get('form.factory')->create('builder_section');
+        $sectionForm = $this->get('form.factory')->create(BuilderSectionType::class);
         $routeParams = [
             'objectAction' => 'new',
         ];
